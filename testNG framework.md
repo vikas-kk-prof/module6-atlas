@@ -120,3 +120,93 @@ developer must have to write testing code inside the `src/test/java` package.
 10. **@AfterMethod** - this will run after each test method.
   
 11. **@Test** - this will contain main logic of testing which generate result of test.
+
+## TestNG methods
+
+**enabled** -- allow to disable or enable any test method so it will skip executions if that method set to false.
+
+**dependsOnGroups** -- The list of groups on which current method depends.
+
+**dependsOnMethods** -- The list of methods on which current method depends.
+
+**groups** -- the list of groups this class/method belong to.
+
+## run test with maven commandline.
+
+To run test with maven commandline first need to install maven into your system and then need to add two more plugins in pom.xml of the project.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    ...
+
+    <dependencies>
+    ...
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <suiteXmlFiles>testng.xml</suiteXmlFiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+```
+
+then to execute test we have two commands
+
+1. mvn test
+2. mvn clean test
+  
+
+To run different test cases with different test files we need to make small changes into maven-surefire-plugin
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    ...
+
+    <dependencies>
+    ...
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                ...
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <suiteXmlFiles>${filename}</suiteXmlFiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+````
+
+after this change we can execute test by passing the xml file name into mvn command.
+
+```bash
+mvn clean test -Dfilename=smoketestng.xml
+mvn clean test -Dfilename=testng.xml
+```

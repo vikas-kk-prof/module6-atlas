@@ -1,4 +1,4 @@
-TestNG framework
+# TestNG framework
 
 **Topics**
 
@@ -19,6 +19,20 @@ TestNG framework
 8. TestNG annotations.
   
 9. TestNG Internal order structure.
+  
+10. TestNG methods.
+  
+11. TestNG parameter.
+  
+12. TestNG Dataprovider.
+  
+13. TestNG priority.
+  
+14. Demostrated One selenium example
+  
+15. Example with selenium with webdrivermanger.
+  
+16. run test with maven commandline.
   
 
 ## Introduction
@@ -120,6 +134,7 @@ developer must have to write testing code inside the `src/test/java` package.
 10. **@AfterMethod** - this will run after each test method.
   
 11. **@Test** - this will contain main logic of testing which generate result of test.
+  
 
 ## TestNG methods
 
@@ -130,6 +145,39 @@ developer must have to write testing code inside the `src/test/java` package.
 **dependsOnMethods** -- The list of methods on which current method depends.
 
 **groups** -- the list of groups this class/method belong to.
+
+## TestNG parameter.
+
+@Parameters: Descibes how to pass different value as parameter to a @Test method.
+
+value - The list of variable used to fill the parameters of this method.
+
+## TestNG Dataprovider.
+
+The *DataProviders* in TestNG are another way to pass the parameters in the test function, the other one being TestNG parameters.
+
+syntex
+
+```java
+	@DataProvider(name="name of data provider")
+	public Object[][] methodname(){
+		return new Object[][] {Add your data here};
+	}
+```
+
+## TestNG priority.
+
+Priority method is the way to execute the test in specific order based on intergers values.
+
+By default all the test priorites are set to zero.
+
+**rules of priority**
+
+should be an int type
+
+should be in -ve to +ve range.
+
+if priority is set to 0 then it follow the alphabetical order.
 
 ## run test with maven commandline.
 
@@ -170,11 +218,13 @@ To run test with maven commandline first need to install maven into your system 
 then to execute test we have two commands
 
 1. mvn test
+  
 2. mvn clean test
   
 
 To run different test cases with different test files we need to make small changes into maven-surefire-plugin
 
+````xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
